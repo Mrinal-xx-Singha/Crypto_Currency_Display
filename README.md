@@ -1,7 +1,7 @@
 # Getting Started with Create React App
 
 ### Watch The Deployed Site Live 
-*L*i*n*k- https://app.netlify.com/sites/thriving-biscochitos-83f4df
+*L*i*n*k- https://thriving-biscochitos-83f4df.netlify.app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
