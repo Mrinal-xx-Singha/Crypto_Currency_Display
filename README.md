@@ -1,8 +1,12 @@
 # Getting Started with Create React App
 
-### Watch The Deployed Site Live 
-*L*i*n*k- https://thriving-biscochitos-83f4df.netlify.app
+## Watch The Deployed Site Live
 
+## *Link*- https://thriving-biscochitos-83f4df.netlify.app
+
+React Hooks is used like useState And useEffect To fetch and manage the Api data 
+
+-----------------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Image:1
