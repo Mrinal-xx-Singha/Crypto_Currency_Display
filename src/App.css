@@ -53,4 +53,38 @@
 .coin-input::placeholder{
     color: #e2e2e2
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
+.pagination button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.pagination button.active {
+  background-color: #ff6666;
+  color: #fff;
+}
+
+
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+    body {
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+    }
+  }
+  @media only screen and (min-width: 901px) {
+    body {
+      font-size: 20px;
+      padding: 25px;
+    }
+  }
