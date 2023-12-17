@@ -1,3 +1,79 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Coin from './coin';
+import Pagination from './Pagination';
+
+function App() {
+  const [coins, setCoins] = useState([]);
+  const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const itemsPerPage = 10;
+
+  // useEffect is a hook which allows performing side effects in a component
+  useEffect(() => {
+    axios
+      .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false')
+      .then((res) => {
+        setCoins(res.data);
+      })
+      .catch((error) => console.log(error));
+  }, [currentPage]);
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  // Calculate filteredCoins inside the useEffect
+  const filteredCoins = coins.filter((coin) =>
+    coin.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredCoins.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredCoins.slice(indexOfFirstItem, indexOfLastItem);
+
+  return (
+    <div className='coin-app'>
+      <h2 className='coin-heading'> Made by @Mrinal Singha</h2>
+      <div className='coin-search'>
+        <h1 className='coin-text'>Search a Currency</h1>
+        <form>
+          <input type='text' placeholder='search' className='coin-input' onChange={handleChange} />
+        </form>
+      </div>
+      {/* mapping over the coin variable where the api is stored so that we get the desired data */}
+      {/* mapping means to create an object (javascript)and calling its properties from the api(.map is a chortcut)  */}
+
+      {currentItems.map((coin) => (
+        <Coin
+          key={coin.id}
+          name={coin.name}
+          image={coin.image}
+          symbol={coin.symbol}
+          marketcap={coin.market_cap}
+          price={coin.current_price}
+          priceChange={coin.price_change_percentage_24h}
+          volume={coin.total_volume}
+        />
+      ))}
+      {/* Pagination Component is used to add pagination functionality */}
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+    </div>
+  );
+}
+
+export default App;
+
+//--------------------------------------------------------------------------------------------------------------------------------------------
+ // OLD CODEBASE
+
+// -------------------------------------------------------------------------------------------------------------------------------------------
 // import React, { useState, useEffect } from 'react'
 // import axios from 'axios'; //axios is imported by npm install axios
 // import Coin from './coin';
@@ -78,73 +154,3 @@
 // }
 // // export default is used to export the app component into the index.js
 // export default App
-
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Coin from './coin';
-import Pagination from './Pagination';
-
-function App() {
-  const [coins, setCoins] = useState([]);
-  const [search, setSearch] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  const itemsPerPage = 10;
-
-  // useEffect is a hook which allows performing side effects in a component
-  useEffect(() => {
-    axios
-      .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false')
-      .then((res) => {
-        setCoins(res.data);
-      })
-      .catch((error) => console.log(error));
-  }, [currentPage]);
-
-  const handleChange = (e) => {
-    setSearch(e.target.value);
-  };
-
-  // Calculate filteredCoins inside the useEffect
-  const filteredCoins = coins.filter((coin) =>
-    coin.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const totalPages = Math.ceil(filteredCoins.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredCoins.slice(indexOfFirstItem, indexOfLastItem);
-
-  return (
-    <div className='coin-app'>
-      <h2 className='coin-heading'> Made by @Mrinal Singha</h2>
-      <div className='coin-search'>
-        <h1 className='coin-text'>Search a Currency</h1>
-        <form>
-          <input type='text' placeholder='search' className='coin-input' onChange={handleChange} />
-        </form>
-      </div>
-
-      {currentItems.map((coin) => (
-        <Coin
-          key={coin.id}
-          name={coin.name}
-          image={coin.image}
-          symbol={coin.symbol}
-          marketcap={coin.market_cap}
-          price={coin.current_price}
-          priceChange={coin.price_change_percentage_24h}
-          volume={coin.total_volume}
-        />
-      ))}
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-    </div>
-  );
-}
-
-export default App;

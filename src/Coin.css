@@ -1,6 +1,9 @@
 .coin-container {
     display: flex;
     justify-content: center;
+    height: 100vh;
+    width: auto;
+
 }
 .coin-row {
     display: flex;
@@ -9,24 +12,24 @@
     align-items: center;
     height: 80px;
     border-bottom: 1px solid #d7d7d7;
-    width: 900px;
+    width: 100%;
 }
 
 .coin {
     display: flex;
     align-items: center;
     padding-right: 24px;
-    min-width: 300px;
+    min-width: 250px;
 }
 
 .coin h1{
     font-size: 16px;
-    width: 150px;
+    width: 120px;
 }
 .coin img{
     height:30px;
     width: 30px;
-    margin-right: 30px;
+    margin-right: 15px;
 }
 .coin-symbol {
     text-transform: uppercase;
@@ -57,4 +60,18 @@
 }
 .green {
     color: #11d811;
+}
+/* Adjusting the width for different screen sizes */
+
+@media only screen and (max-width:600px){
+    .coin h1{
+        width: 100px;
+    }
+    .coin-img {
+        margin-right: 10px;
+    }
+    .coin-row {
+        width: 100%;
+    }
+   
 }
